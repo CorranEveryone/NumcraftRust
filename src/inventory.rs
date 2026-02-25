@@ -208,8 +208,10 @@ impl Inventory {
                         ),
                     );
                 } else {
-                    other_inventory.replace_slot_item_stack(end_slot, start_slot_itemstack);
-                    self.replace_slot_item_stack(start_slot, end_slot_itemstack);
+                    if end_slot_itemstack.amount as usize != end_max_stack_amount {
+                        other_inventory.replace_slot_item_stack(end_slot, start_slot_itemstack);
+                        self.replace_slot_item_stack(start_slot, end_slot_itemstack);
+                    }
                 }
             }
         }
@@ -366,7 +368,9 @@ impl Inventory {
                         ),
                     );
                 } else {
-                    self.swap_slots(start_slot, end_slot);
+                    if end_slot_itemstack.amount as usize != end_max_stack_amount {
+                        self.swap_slots(start_slot, end_slot);
+                    }
                 }
             }
         }
